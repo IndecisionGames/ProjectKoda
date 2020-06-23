@@ -1,9 +1,9 @@
 extends KinematicBody2D
 
-var max_speed = 400 # Max speed of player
+var max_speed = 300 # Max speed of player
 var speed = 0 # Current speed of player
-var acceleration = 1200 # Acceleration at which speed approaches max_speed
-var move_direction # Movement direction as input for player
+var acceleration = 600 # Acceleration at which speed approaches max_speed
+var move_direction = 0 # Movement direction as input for player
 var moving = false # Boolean that will activate movement for player and reset speed to 0 if stood still
 var destination = Vector2() # Location where mouse clicked
 var movement = Vector2() # The movement to push to the engine
@@ -13,33 +13,36 @@ func _unhandled_input(event): #Function that will take unhandled input
 		moving = true
 		destination = get_global_mouse_position()
 
-
-func _process(delta):
-	AnimationLoop()
-
+func _process(_delta):
+	# Temporarily commented out unril animated assets are created
+	# animationLoop()
+	pass
 
 func _physics_process(delta):
-	MovementLoop(delta)
+	movementLoop(delta)
 
-
-func MovementLoop(delta):
-	if moving == false:
+func movementLoop(delta):
+	if not moving:
 		speed = 0
 	else:
 		speed += acceleration * delta
 		if speed > max_speed:
 			speed = max_speed
+			
+	var new_move_direction = rad2deg(destination.angle_to_point(position))
+	var direction_diff = abs(abs(new_move_direction) - abs(move_direction))
+	if direction_diff >= 30:
+		speed /= 2
+	elif direction_diff >= 110:
+		speed = 0
+	move_direction = new_move_direction
 	movement = position.direction_to(destination) * speed
-	move_direction = rad2deg(destination.angle_to_point(position))
 	if position.distance_to(destination) > 5:
 		movement = move_and_slide(movement)
 	else:
 		moving = false
 
-
-
-
-func AnimationLoop():
+func animationLoop():
 	var anim_direction = "S"
 	var anim_mode = "Idle"
 	var animation
