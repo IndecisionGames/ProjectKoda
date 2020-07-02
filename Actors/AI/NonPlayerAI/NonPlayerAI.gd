@@ -1,4 +1,4 @@
-extends "res://Entities/AI/AI.gd"
+extends AI
 
 
 # Declare member variables here. Examples:

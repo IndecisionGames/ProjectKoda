@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+class_name Actor
+
 var max_speed = 300 # Max speed of player
 var speed = 0 # Current speed of player
 var acceleration = 600 # Acceleration at which speed approaches max_speed
@@ -8,13 +10,8 @@ var moving = false # Boolean that will activate movement for player and reset sp
 var destination = Vector2() # Location where mouse clicked
 var movement = Vector2() # The movement to push to the engine
 
-func _unhandled_input(event): #Function that will take unhandled input
-	if event.is_action_pressed('RightClick'):
-		moving = true
-		destination = get_global_mouse_position()
-
 func _process(_delta):
-	# Temporarily commented out unril animated assets are created
+	# Temporarily commented out until animated assets are created
 	# animationLoop()
 	pass
 

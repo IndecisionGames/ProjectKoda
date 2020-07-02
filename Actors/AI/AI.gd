@@ -1,5 +1,6 @@
-extends Node
+extends Actor
 
+class_name AI
 
 # Declare member variables here. Examples:
 # var a = 2
